@@ -23,15 +23,17 @@ import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.scheduler.model.NewsItem;
 import com.scheduler.repository.NewsItemRepository;
-import com.scheduler.service.NewsItemMongoService;
 
+/**
+ *
+ * @author Sandeep Mogla
+ */
 public class WebCrawler {
 
     private static Logger logger = LoggerFactory.getLogger(WebCrawler.class);
@@ -46,7 +48,7 @@ public class WebCrawler {
     private static int countWoker = 0;
 
     private NewsItemRepository newsItemRepository;
-    
+
     private List<NewsItem> entites = new ArrayList<>();
 
     public WebCrawler(String baseUrl, int numOfThreads, NewsItemRepository newsItemRepository) {
@@ -118,7 +120,7 @@ public class WebCrawler {
 		    ni.setContent(doc.html());
 		} catch (IOException e) {
 		    e.printStackTrace();
-		}finally {
+		} finally {
 		    pending.decrementAndGet();
 		    logger.info("pending tasks after decrementAndGet {}", pending);
 		}
@@ -130,7 +132,7 @@ public class WebCrawler {
 //		for (NewsItem _ni : newsItemRepository.findAll()) {
 //			System.out.println(_ni);
 //		}
-		
+
 		if (pending.get() == 0) {
 		    synchronized (lock) {
 			lock.notify();
@@ -138,7 +140,7 @@ public class WebCrawler {
 		}
 	    }
 	});
-	
+
     }
 
     private List<?> getLinksFromRSSUrl(final String url) {
@@ -209,7 +211,7 @@ public class WebCrawler {
 	    }
 	}
 	logger.info("after lock inside join");
-	
+
 	newsItemRepository.saveAll(entites);
 	logger.info("news repository entities are stored");
     }

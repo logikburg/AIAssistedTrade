@@ -19,6 +19,10 @@ package com.scheduler.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+*
+* @author Sandeep Mogla
+*/
 @Document
 public class NewsItem {
 

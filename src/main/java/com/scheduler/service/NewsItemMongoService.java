@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.scheduler.model.NewsItem;
 import com.scheduler.repository.NewsItemRepository;
 
+/**
+*
+* @author Sandeep Mogla
+*/
 @Service
 public class NewsItemMongoService {
 

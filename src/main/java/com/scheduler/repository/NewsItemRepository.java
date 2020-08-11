@@ -20,7 +20,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.scheduler.model.NewsItem;
 
-//@Repository
+/**
+*
+* @author Sandeep Mogla
+*/
 public interface NewsItemRepository extends MongoRepository<NewsItem, String> {
 
     NewsItem findByTitle(String title);
